@@ -1,11 +1,8 @@
 export abstract class EnumValueObject<T> {
-    readonly value: T;
-
     constructor(
-        value: T,
+        readonly value: T,
         private validValues: T[],
     ) {
-        this.value = value;
         this.ensureValueIsValid(value);
     }
 

@@ -1,10 +1,7 @@
 export type Primitives = string | number | boolean;
 
 export abstract class ValueObject<T extends Primitives> {
-    readonly value: T;
-
-    constructor(value: T) {
-        this.value = value;
+    constructor(readonly value: T) {
         this.ensureValueIsDefined(value);
     }
 
