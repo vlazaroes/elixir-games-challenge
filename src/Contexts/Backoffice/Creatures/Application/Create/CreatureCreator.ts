@@ -1,3 +1,4 @@
+import { Inject, Injectable } from '@nestjs/common';
 import { Creature } from '../../Domain/Creature';
 import { CreatureDescription } from '../../Domain/CreatureDescription';
 import { CreatureFirstName } from '../../Domain/CreatureFirstName';
@@ -9,13 +10,18 @@ import { CreatureImage } from '../../Domain/CreatureImage';
 import { CreatureLastName } from '../../Domain/CreatureLastName';
 import { CreatureNationality } from '../../Domain/CreatureNationality';
 import { CreaturePassword } from '../../Domain/CreaturePassword';
+import { CreatureRepository } from '../../Domain/CreatureRepository';
 import { CreatureSecretNotes } from '../../Domain/CreatureSecretNotes';
 import { CreatureSpeed } from '../../Domain/CreatureSpeed';
 import { CreatureTitleName } from '../../Domain/CreatureTitleName';
-import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class CreatureCreator {
+    constructor(
+        @Inject(CreatureRepository)
+        private creatureRepository: CreatureRepository,
+    ) {}
+
     async run(
         id: CreatureId,
         titleName: CreatureTitleName,
@@ -31,21 +37,22 @@ export class CreatureCreator {
         secretNotes: CreatureSecretNotes,
         password: CreaturePassword,
     ): Promise<void> {
-        const creature = new Creature(
-            id,
-            titleName,
-            firstName,
-            lastName,
-            gender,
-            description,
-            nationality,
-            image,
-            goldBalance,
-            speed,
-            health,
-            secretNotes,
-            password,
+        await this.creatureRepository.save(
+            new Creature(
+                id,
+                titleName,
+                firstName,
+                lastName,
+                gender,
+                description,
+                nationality,
+                image,
+                goldBalance,
+                speed,
+                health,
+                secretNotes,
+                password,
+            ),
         );
-        console.log(creature);
     }
 }
