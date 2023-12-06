@@ -3,7 +3,9 @@ import { ValueObject } from '../../../Shared/Domain/ValueObject';
 export class CreatureImage extends ValueObject<string> {
     constructor(value: string) {
         super(value);
-        this.ensureIsValid(value);
+        if (value) {
+            this.ensureIsValid(value);
+        }
     }
 
     private ensureIsValid(value: string): void {
