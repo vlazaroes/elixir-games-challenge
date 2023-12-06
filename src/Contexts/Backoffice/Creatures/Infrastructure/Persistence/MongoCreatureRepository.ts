@@ -1,4 +1,5 @@
 import { Creature } from '../../Domain/Creature';
+import { CreatureId } from '../../Domain/CreatureId';
 import { CreatureModel } from './CreatureSchema';
 import { CreatureRepository } from '../../Domain/CreatureRepository';
 import { InjectModel } from '@nestjs/mongoose';
@@ -31,5 +32,9 @@ export class MongoCreatureRepository implements CreatureRepository {
             },
             { upsert: true },
         );
+    }
+
+    public async remove(id: CreatureId): Promise<void> {
+        await this.creatureModel.findByIdAndDelete(id.value);
     }
 }
