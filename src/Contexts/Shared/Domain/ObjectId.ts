@@ -12,7 +12,7 @@ export class ObjectId extends ValueObject<string> {
     }
 
     private ensureValueIsValid(value: string): void {
-        if (MongoId.isValid(value)) {
+        if (!MongoId.isValid(value)) {
             throw new Error(
                 `${this.constructor.name} does not allow the value '${value}'`,
             );
