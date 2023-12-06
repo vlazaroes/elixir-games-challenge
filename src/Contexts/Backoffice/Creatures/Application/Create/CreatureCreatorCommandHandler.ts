@@ -22,7 +22,7 @@ export class CreatureCreatorCommandHandler
     constructor(private creatureCreator: CreatureCreator) {}
 
     async execute(command: CreatureCreatorCommand): Promise<void> {
-        this.creatureCreator.run(
+        await this.creatureCreator.run(
             new CreatureId(command.id),
             CreatureTitleName.fromValue(command.titleName),
             new CreatureFirstName(command.firstName),
