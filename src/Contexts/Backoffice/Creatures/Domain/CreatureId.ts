@@ -1,3 +1,3 @@
-import { Ulid } from '../../../../Contexts/Shared/Domain/Ulid';
+import { ObjectId } from '../../../../Contexts/Shared/Domain/ObjectId';
 
-export class CreatureId extends Ulid {}
+export class CreatureId extends ObjectId {}
