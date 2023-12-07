@@ -34,6 +34,27 @@ export class MongoCreatureRepository implements CreatureRepository {
         );
     }
 
+    public async searchAll(): Promise<Creature[]> {
+        const creatures = await this.creatureModel.find();
+        return creatures.map((creature) =>
+            Creature.fromPrimitives(
+                creature.id,
+                creature.titleName,
+                creature.firstName,
+                creature.lastName,
+                creature.gender,
+                creature.description,
+                creature.nationality,
+                creature.image,
+                creature.goldBalance,
+                creature.speed,
+                creature.health,
+                creature.secretNotes,
+                creature.password,
+            ),
+        );
+    }
+
     public async remove(id: CreatureId): Promise<void> {
         await this.creatureModel.findByIdAndDelete(id.value);
     }
