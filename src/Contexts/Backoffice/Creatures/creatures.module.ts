@@ -1,7 +1,7 @@
 import {
     CreatureModel,
     CreatureSchema,
-} from './Infrastructure/Persistence/CreatureSchema';
+} from '../../Shared/Infrastructure/Creatures/CreatureSchema';
 import { CreatureCreator } from './Application/Create/CreatureCreator';
 import { CreatureCreatorCommandHandler } from './Application/Create/CreatureCreatorCommandHandler';
 import { CreatureFinder } from './Application/SearchAll/CreatureFinder';
