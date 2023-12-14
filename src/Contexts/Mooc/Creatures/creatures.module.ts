@@ -1,7 +1,7 @@
 import {
     CreatureModel,
     CreatureSchema,
-} from './Infrastructure/Persistence/CreatureSchema';
+} from '../../Shared/Infrastructure/Creatures/CreatureSchema';
 import { CreatureFinder } from './Application/SearchAll/CreatureFinder';
 import { CreatureRepository } from './Domain/CreatureRepository';
 import { Module } from '@nestjs/common';

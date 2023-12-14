@@ -1,5 +1,5 @@
 import { Creature } from '../../Domain/Creature';
-import { CreatureModel } from './CreatureSchema';
+import { CreatureModel } from '../../../../Shared/Infrastructure/Creatures/CreatureSchema';
 import { CreatureRepository } from '../../Domain/CreatureRepository';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
