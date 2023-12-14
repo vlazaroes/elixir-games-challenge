@@ -13,7 +13,7 @@ export class MongoCreatureRepository implements CreatureRepository {
         private creatureModel: Model<CreatureModel>,
     ) {}
 
-    public async save(creature: Creature): Promise<void> {
+    async save(creature: Creature): Promise<void> {
         await this.creatureModel.findByIdAndUpdate(
             creature.id.value,
             {
@@ -34,7 +34,7 @@ export class MongoCreatureRepository implements CreatureRepository {
         );
     }
 
-    public async searchAll(): Promise<Creature[]> {
+    async searchAll(): Promise<Creature[]> {
         const creatures = await this.creatureModel.find();
         return creatures.map((creature) =>
             Creature.fromPrimitives(
@@ -55,7 +55,7 @@ export class MongoCreatureRepository implements CreatureRepository {
         );
     }
 
-    public async remove(id: CreatureId): Promise<void> {
+    async remove(id: CreatureId): Promise<void> {
         await this.creatureModel.findByIdAndDelete(id.value);
     }
 }

@@ -77,7 +77,7 @@ export class Creature {
         );
     }
 
-    public toPrimitives(): ICreature {
+    toPrimitives(): ICreature {
         return {
             id: this.id.value,
             titleName: this.titleName.value,

@@ -35,4 +35,4 @@ export const QueryHandlers = [SearchAllCreatureQueryHandler];
         ...CommandHandlers,
     ],
 })
-export class ContextCreaturesModule {}
+export class ContextBackofficeCreaturesModule {}
