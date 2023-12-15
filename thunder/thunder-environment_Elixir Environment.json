@@ -1,0 +1,12 @@
+{
+    "client": "Thunder Client",
+    "environmentName": "Elixir Environment",
+    "dateExported": "2023-12-15T03:42:46.394Z",
+    "version": "1.0",
+    "variables": [
+        {
+            "name": "JWT_TOKEN",
+            "value": ""
+        }
+    ]
+}

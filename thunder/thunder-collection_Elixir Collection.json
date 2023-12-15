@@ -1,0 +1,123 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Elixir Collection",
+    "dateExported": "2023-12-15T03:42:24.229Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "36d2efd5-efae-43ec-a631-d6aa15a8397b",
+            "colId": "da4d0bd9-502e-4035-96c1-91f46e3f1c3a",
+            "containerId": "",
+            "name": "Sign in",
+            "url": "http://localhost:3000/auth/signin",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-12-15T03:06:19.163Z",
+            "modified": "2023-12-15T03:06:19.163Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"username\": \"boredmike\",\n    \"password\": \"1234\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "7558a15c-a962-474a-993a-23ba87d0360b",
+            "colId": "da4d0bd9-502e-4035-96c1-91f46e3f1c3a",
+            "containerId": "",
+            "name": "Get Creatures (Public)",
+            "url": "http://localhost:3000/creatures?lastId=657bb5cdbf99faeb4e932915&pageSize=3",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-12-15T03:34:39.083Z",
+            "modified": "2023-12-15T03:34:39.083Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "lastId",
+                    "value": "657bb5cdbf99faeb4e932915",
+                    "isPath": false
+                },
+                {
+                    "name": "pageSize",
+                    "value": "3",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "16329cda-f3e5-40ed-88b6-e3c117c7700c",
+            "colId": "da4d0bd9-502e-4035-96c1-91f46e3f1c3a",
+            "containerId": "",
+            "name": "Get Creatures (Private)",
+            "url": "http://localhost:3000/backoffice/creatures?lastId=657bb5cdbf99faeb4e932915&pageSize=3",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-12-15T03:36:09.821Z",
+            "modified": "2023-12-15T03:38:01.190Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "lastId",
+                    "value": "657bb5cdbf99faeb4e932915",
+                    "isPath": false
+                },
+                {
+                    "name": "pageSize",
+                    "value": "3",
+                    "isPath": false
+                }
+            ],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{JWT_TOKEN}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "ee272ff1-99a8-4892-be09-0ceb73bf5a76",
+            "colId": "da4d0bd9-502e-4035-96c1-91f46e3f1c3a",
+            "containerId": "",
+            "name": "Create/Update Creature (Private)",
+            "url": "http://localhost:3000/backoffice/creatures/657bca4ceb154cdd21b71d4d",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2023-12-15T03:38:23.288Z",
+            "modified": "2023-12-15T03:40:34.717Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"titleName\": \"Mr.\",\n    \"firstName\": \"Wise\",\n    \"lastName\": \"Dragon\",\n    \"gender\": \"male\",\n    \"description\": \"A fat but small red creature with short wings that cannot fly and spits fire\",\n    \"nationality\": \"US\",\n    \"image\": \"\",\n    \"goldBalance\": 0,\n    \"speed\": 5.2,\n    \"health\": 105,\n    \"secretNotes\": \"It was in the 3D Art office, under the desk\",\n    \"password\": \"songoffireandcore\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{JWT_TOKEN}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "07bb798b-7da5-492f-b0fa-6cd801b28872",
+            "colId": "da4d0bd9-502e-4035-96c1-91f46e3f1c3a",
+            "containerId": "",
+            "name": "Delete Creature (Private)",
+            "url": "http://localhost:3000/backoffice/creatures/657bca4ceb154cdd21b71d4d",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2023-12-15T03:39:46.028Z",
+            "modified": "2023-12-15T03:39:57.824Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{JWT_TOKEN}}"
+            },
+            "tests": []
+        }
+    ]
+}
