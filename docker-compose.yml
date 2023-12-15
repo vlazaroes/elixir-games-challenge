@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0.4
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+  redis:
+    image: redis:7.2.3
+    restart: always
+    command: bash -c 'redis-server --appendonly yes --requirepass example'
+    ports:
+      - 6379:6379
