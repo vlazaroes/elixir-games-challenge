@@ -17,10 +17,9 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 COPY --from=builder /usr/src/app/dist ./dist
-RUN npm ci --quiet --ignore-scripts --only=production \
-    && chown -R node:node /usr/src/app
+RUN npm ci --quiet --ignore-scripts --only=production
 
-USER node
+# USER node
 EXPOSE 3000
 CMD ["npm", "run", "start:prod"]
 
