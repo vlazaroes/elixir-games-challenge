@@ -16,4 +16,4 @@ import { Module } from '@nestjs/common';
         },
     ],
 })
-export class AppCreaturesModule {}
+export class AppBackofficeCreaturesModule {}

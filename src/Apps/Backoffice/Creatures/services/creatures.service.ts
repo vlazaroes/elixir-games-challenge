@@ -1,7 +1,9 @@
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { Creature } from '../../../../Contexts/Backoffice/Creatures/Domain/Creature';
+import {
+    Creature,
+    ICreature,
+} from '../../../../Contexts/Backoffice/Creatures/Domain/Creature';
 import { CreatureCreatorCommand } from '../../../../Contexts/Backoffice/Creatures/Domain/CreatureCreatorCommand';
-import { CreatureDto } from '../../../../Contexts/Backoffice/Creatures/Domain/CreatureDto';
 import { CreatureFinderQuery } from '../../../../Contexts/Backoffice/Creatures/Domain/CreatureFinderQuery';
 import { CreatureRemoverCommand } from '../../../../Contexts/Backoffice/Creatures/Domain/CreatureRemoverCommand';
 import { Injectable } from '@nestjs/common';
@@ -17,10 +19,10 @@ export class CreaturesService {
         return await this.queryBus.execute(new CreatureFinderQuery());
     }
 
-    async save(id: string, creature: CreatureDto): Promise<any> {
-        return await this.commandBus.execute(
+    save(creature: ICreature): Promise<any> {
+        return this.commandBus.execute(
             new CreatureCreatorCommand(
-                id,
+                creature.id,
                 creature.titleName,
                 creature.firstName,
                 creature.lastName,
@@ -37,7 +39,7 @@ export class CreaturesService {
         );
     }
 
-    async remove(id: string): Promise<any> {
-        return await this.commandBus.execute(new CreatureRemoverCommand(id));
+    remove(id: string): Promise<any> {
+        return this.commandBus.execute(new CreatureRemoverCommand(id));
     }
 }
