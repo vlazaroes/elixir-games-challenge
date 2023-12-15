@@ -1,20 +1,37 @@
-import { AppCreaturesModule } from './Apps/Backoffice/Creatures/creatures.module';
+import { AppAuthModule } from './Apps/Auth/auth.module';
+import { AppBackofficeCreaturesModule } from './Apps/Backoffice/Creatures/creatures.module';
+import { AppBackofficeUsersModule } from './Apps/Backoffice/Users/users.module';
+import { AppMoocCreaturesModule } from './Apps/Mooc/Creatures/creatures.module';
 import { CacheModule } from '@nestjs/cache-manager';
-import { ContextCreaturesModule } from './Contexts/Backoffice/Creatures/creatures.module';
+import { ConfigModule } from '@nestjs/config';
+import { ContextBackofficeCreaturesModule } from './Contexts/Backoffice/Creatures/creatures.module';
+import { ContextMoocCreaturesModule } from './Contexts/Mooc/Creatures/creatures.module';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { RouterModule } from '@nestjs/core';
 import { redisStore } from 'cache-manager-redis-yet';
 
 @Module({
     imports: [
-        MongooseModule.forRoot('mongodb://root:example@localhost:27017/elixir'),
+        ConfigModule.forRoot(),
+        MongooseModule.forRoot(process.env.MONGODB_URL || ''),
         CacheModule.register({
             isGlobal: true,
             store: redisStore,
-            url: 'redis://localhost:6379',
+            url: process.env.REDIS_URL || '',
         }),
-        AppCreaturesModule,
-        ContextCreaturesModule,
+        AppMoocCreaturesModule,
+        AppAuthModule,
+        AppBackofficeCreaturesModule,
+        AppBackofficeUsersModule,
+        ContextMoocCreaturesModule,
+        ContextBackofficeCreaturesModule,
+        RouterModule.register([
+            {
+                path: 'backoffice',
+                module: AppBackofficeCreaturesModule,
+            },
+        ]),
     ],
 })
 export class AppModule {}

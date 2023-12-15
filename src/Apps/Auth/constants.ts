@@ -1,4 +1,4 @@
 export const ROLES_KEY = 'roles';
 export const jwtConstants = {
-    secret: 'supersecretpassword',
+    secret: process.env.JWT_SECRET || '',
 };
