@@ -1,3 +1,5 @@
+import { ValidationException } from './ValidationException';
+
 export abstract class EnumValueObject<T> {
     constructor(
         readonly value: T,
@@ -8,7 +10,7 @@ export abstract class EnumValueObject<T> {
 
     private ensureValueIsValid(value: T): void {
         if (!this.validValues.includes(value)) {
-            throw new Error(
+            throw new ValidationException(
                 `${this.constructor.name} does not allow the value '${value}'`,
             );
         }

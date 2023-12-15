@@ -1,3 +1,4 @@
+import { ValidationException } from '../../../../Contexts/Shared/Domain/ValidationException';
 import { ValueObject } from '../../../Shared/Domain/ValueObject';
 
 export class CreatureImage extends ValueObject<string> {
@@ -12,7 +13,9 @@ export class CreatureImage extends ValueObject<string> {
         const regex =
             /https?:\/\/(?:www\.)?([-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b)*(\/[\/\d\w\.-]*)*(?:[\?])*(.+)*/;
         if (!regex.test(value)) {
-            throw new Error(`${this.constructor.name} is not valid`);
+            throw new ValidationException(
+                `${this.constructor.name} is not valid`,
+            );
         }
     }
 }

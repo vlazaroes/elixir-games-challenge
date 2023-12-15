@@ -1,3 +1,4 @@
+import { ValidationException } from '../../../../Contexts/Shared/Domain/ValidationException';
 import { ValueObject } from '../../../Shared/Domain/ValueObject';
 
 export class CreatureDescription extends ValueObject<string> {
@@ -8,7 +9,7 @@ export class CreatureDescription extends ValueObject<string> {
 
     private ensureLengthCharacters(value: string): void {
         if (value.length > 254) {
-            throw new Error(
+            throw new ValidationException(
                 `${this.constructor.name} has more than 254 characters`,
             );
         }

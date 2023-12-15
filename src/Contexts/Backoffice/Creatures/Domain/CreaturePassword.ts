@@ -1,3 +1,4 @@
+import { ValidationException } from '../../../../Contexts/Shared/Domain/ValidationException';
 import { ValueObject } from '../../../Shared/Domain/ValueObject';
 
 export class CreaturePassword extends ValueObject<string> {
@@ -9,12 +10,12 @@ export class CreaturePassword extends ValueObject<string> {
 
     private ensureLengthCharacters(value: string): void {
         if (value.length < 8) {
-            throw new Error(
+            throw new ValidationException(
                 `${this.constructor.name} has less than 8 characters`,
             );
         }
         if (value.length > 100) {
-            throw new Error(
+            throw new ValidationException(
                 `${this.constructor.name} has more than 100 characters`,
             );
         }
@@ -22,7 +23,9 @@ export class CreaturePassword extends ValueObject<string> {
 
     private ensureIsNotEntirelyNumeric(value: string): void {
         if (Number.isNaN(value)) {
-            throw new Error(`${this.constructor.name} is entirely numeric`);
+            throw new ValidationException(
+                `${this.constructor.name} is entirely numeric`,
+            );
         }
     }
 }

@@ -1,3 +1,4 @@
+import { ValidationException } from '../../../../Contexts/Shared/Domain/ValidationException';
 import { ValueObject } from '../../../Shared/Domain/ValueObject';
 
 export class CreatureNationality extends ValueObject<string> {
@@ -9,7 +10,7 @@ export class CreatureNationality extends ValueObject<string> {
 
     private ensureLengthCharacters(value: string): void {
         if (value.length != 2) {
-            throw new Error(
+            throw new ValidationException(
                 `${this.constructor.name} is different from 2 characters`,
             );
         }
@@ -18,7 +19,7 @@ export class CreatureNationality extends ValueObject<string> {
     private ensureIsAllLetters(value: string): void {
         const regex = /^[a-zA-Z]+$/;
         if (!regex.test(value)) {
-            throw new Error(
+            throw new ValidationException(
                 `${this.constructor.name} contains symbols or letters`,
             );
         }

@@ -1,3 +1,5 @@
+import { ValidationException } from './ValidationException';
+
 export type Primitives = string | number | boolean;
 
 export abstract class ValueObject<T extends Primitives> {
@@ -7,7 +9,9 @@ export abstract class ValueObject<T extends Primitives> {
 
     private ensureValueIsDefined(value: T): void {
         if (value === null || value === undefined) {
-            throw new Error(`${this.constructor.name} value must be defined`);
+            throw new ValidationException(
+                `${this.constructor.name} value must be defined`,
+            );
         }
     }
 }

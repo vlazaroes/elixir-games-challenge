@@ -1,4 +1,5 @@
 import { EnumValueObject } from '../../../../Contexts/Shared/Domain/EnumValueObject';
+import { ValidationException } from '../../../../Contexts/Shared/Domain/ValidationException';
 
 export enum CreatureGenders {
     MALE = 'male',
@@ -17,6 +18,8 @@ export class CreatureGender extends EnumValueObject<CreatureGenders> {
                 return new CreatureGender(gender);
             }
         }
-        throw new Error(`${this.constructor.name} value is invalid`);
+        throw new ValidationException(
+            `${this.constructor.name} value is invalid`,
+        );
     }
 }
