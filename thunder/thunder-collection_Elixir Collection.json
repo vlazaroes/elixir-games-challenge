@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Elixir Collection",
-    "dateExported": "2023-12-15T03:42:24.229Z",
+    "dateExported": "2023-12-15T05:20:49.194Z",
     "version": "1.1",
     "folders": [],
     "requests": [
@@ -14,7 +14,7 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2023-12-15T03:06:19.163Z",
-            "modified": "2023-12-15T03:06:19.163Z",
+            "modified": "2023-12-15T05:08:11.918Z",
             "headers": [],
             "params": [],
             "body": {
@@ -113,6 +113,52 @@
             "modified": "2023-12-15T03:39:57.824Z",
             "headers": [],
             "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{JWT_TOKEN}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "43cc5f37-dea9-4205-9e09-bfb2a5aef6af",
+            "colId": "da4d0bd9-502e-4035-96c1-91f46e3f1c3a",
+            "containerId": "",
+            "name": "Give Gold Creature (Private) [CEO]",
+            "url": "http://localhost:3000/backoffice/creatures/657bca4ceb154cdd21b71d4d/gold",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2023-12-15T04:04:51.369Z",
+            "modified": "2023-12-15T05:07:39.758Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"quantity\": 1\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{JWT_TOKEN}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "34b5f626-828c-4b06-96d2-3505cbc1db51",
+            "colId": "da4d0bd9-502e-4035-96c1-91f46e3f1c3a",
+            "containerId": "",
+            "name": "Remove Gold Creature (Private) [Admin]",
+            "url": "http://localhost:3000/backoffice/creatures/657bca4ceb154cdd21b71d4d/gold",
+            "method": "DELETE",
+            "sortNum": 70000,
+            "created": "2023-12-15T04:10:41.501Z",
+            "modified": "2023-12-15T05:16:09.093Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"quantity\": 1\n}",
+                "form": []
+            },
             "auth": {
                 "type": "bearer",
                 "bearer": "{{JWT_TOKEN}}"
