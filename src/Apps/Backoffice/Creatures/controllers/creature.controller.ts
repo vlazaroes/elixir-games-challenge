@@ -5,6 +5,7 @@ import {
     HttpCode,
     HttpStatus,
     Param,
+    Post,
     Put,
     Query,
     Req,
@@ -61,5 +62,21 @@ export class CreaturesController {
     @HttpCode(HttpStatus.ACCEPTED)
     remove(@Param('id') id: string): Promise<any> {
         return this.creaturesServices.remove(id);
+    }
+
+    @Post(':id/gold')
+    @UseGuards(AuthGuard)
+    @Roles(Role.Ceo)
+    @HttpCode(HttpStatus.ACCEPTED)
+    giveGold(@Param('id') id: string, @Req() request: Request): Promise<any> {
+        return this.creaturesServices.giveGold(id, request.body.quantity);
+    }
+
+    @Delete(':id/gold')
+    @UseGuards(AuthGuard)
+    @Roles(Role.Admin)
+    @HttpCode(HttpStatus.ACCEPTED)
+    removeGold(@Param('id') id: string, @Req() request: Request): Promise<any> {
+        return this.creaturesServices.removeGold(id, request.body.quantity);
     }
 }

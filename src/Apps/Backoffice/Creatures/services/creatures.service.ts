@@ -3,10 +3,14 @@ import {
     Creature,
     ICreature,
 } from '../../../../Contexts/Backoffice/Creatures/Domain/Creature';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatureCreatorCommand } from '../../../../Contexts/Backoffice/Creatures/Domain/CreatureCreatorCommand';
+import { CreatureFindOneQuery } from '../../../../Contexts/Backoffice/Creatures/Domain/CreatureFindOneQuery';
 import { CreatureFinderQuery } from '../../../../Contexts/Backoffice/Creatures/Domain/CreatureFinderQuery';
+import { CreatureGiveGoldCommand } from '../../../../Contexts/Backoffice/Creatures/Domain/CreatureGiveGoldCommand';
+import { CreatureRemoveGoldCommand } from '../../../../Contexts/Backoffice/Creatures/Domain/CreatureRemoveGoldCommand';
 import { CreatureRemoverCommand } from '../../../../Contexts/Backoffice/Creatures/Domain/CreatureRemoverCommand';
-import { Injectable } from '@nestjs/common';
+import { ValidationException } from '../../../../Contexts/Shared/Domain/ValidationException';
 
 @Injectable()
 export class CreaturesService {
@@ -43,5 +47,39 @@ export class CreaturesService {
 
     remove(id: string): Promise<any> {
         return this.commandBus.execute(new CreatureRemoverCommand(id));
+    }
+
+    async giveGold(id: string, quantity: number): Promise<any> {
+        const creature = await this.queryBus.execute(
+            new CreatureFindOneQuery(id),
+        );
+        if (!creature) {
+            throw new NotFoundException();
+        }
+        if (creature.goldBalance + quantity > 999999) {
+            throw new ValidationException(
+                'You are exceeding the maximum amount of gold per creature.',
+            );
+        }
+        return this.commandBus.execute(
+            new CreatureGiveGoldCommand(id, quantity),
+        );
+    }
+
+    async removeGold(id: string, quantity: number): Promise<any> {
+        const creature = await this.queryBus.execute(
+            new CreatureFindOneQuery(id),
+        );
+        if (!creature) {
+            throw new NotFoundException();
+        }
+        if (creature.goldBalance - quantity < 0) {
+            throw new ValidationException(
+                'You are trying to remove more gold than the creature has.',
+            );
+        }
+        return this.commandBus.execute(
+            new CreatureRemoveGoldCommand(id, quantity),
+        );
     }
 }

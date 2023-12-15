@@ -1,4 +1,5 @@
 import { Creature } from '../../Domain/Creature';
+import { CreatureGoldBalance } from '../../Domain/CreatureGoldBalance';
 import { CreatureId } from '../../Domain/CreatureId';
 import { CreatureModel } from '../../../../Shared/Infrastructure/Creatures/CreatureSchema';
 import { CreatureRepository } from '../../Domain/CreatureRepository';
@@ -34,6 +35,27 @@ export class MongoCreatureRepository implements CreatureRepository {
         );
     }
 
+    async searchOne(id: string): Promise<Creature | null> {
+        const creature = await this.creatureModel.findById(id);
+        return creature
+            ? Creature.fromPrimitives(
+                  creature.id,
+                  creature.titleName,
+                  creature.firstName,
+                  creature.lastName,
+                  creature.gender,
+                  creature.description,
+                  creature.nationality,
+                  creature.image,
+                  creature.goldBalance,
+                  creature.speed,
+                  creature.health,
+                  creature.secretNotes,
+                  creature.password,
+              )
+            : null;
+    }
+
     async searchAll(lastId: string, pageSize: number = 0): Promise<Creature[]> {
         let creatures;
         if (!lastId) {
@@ -64,5 +86,45 @@ export class MongoCreatureRepository implements CreatureRepository {
 
     async remove(id: CreatureId): Promise<void> {
         await this.creatureModel.findByIdAndDelete(id.value);
+    }
+
+    async giveGold(
+        id: CreatureId,
+        quantity: CreatureGoldBalance,
+    ): Promise<void> {
+        await this.creatureModel.findByIdAndUpdate(id.value, [
+            {
+                $set: {
+                    goldBalance: {
+                        $min: [
+                            999999,
+                            {
+                                $sum: ['$goldBalance', quantity.value],
+                            },
+                        ],
+                    },
+                },
+            },
+        ]);
+    }
+
+    async removeGold(
+        id: CreatureId,
+        quantity: CreatureGoldBalance,
+    ): Promise<void> {
+        await this.creatureModel.findByIdAndUpdate(id.value, [
+            {
+                $set: {
+                    goldBalance: {
+                        $max: [
+                            0,
+                            {
+                                $subtract: ['$goldBalance', quantity.value],
+                            },
+                        ],
+                    },
+                },
+            },
+        ]);
     }
 }
