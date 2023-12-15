@@ -6,6 +6,7 @@ import {
     HttpStatus,
     Param,
     Put,
+    Query,
     Req,
     UseGuards,
     UseInterceptors,
@@ -25,8 +26,11 @@ export class CreaturesController {
 
     @Get()
     @UseGuards(AuthGuard)
-    async searchAll(): Promise<Creature[]> {
-        return await this.creaturesServices.searchAll();
+    async searchAll(
+        @Query('lastId') lastId: string,
+        @Query('pageSize') pageSize: number,
+    ): Promise<Creature[]> {
+        return await this.creaturesServices.searchAll(lastId, pageSize);
     }
 
     @Put(':id')

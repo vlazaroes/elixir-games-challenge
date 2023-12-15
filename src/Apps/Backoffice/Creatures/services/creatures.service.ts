@@ -15,8 +15,10 @@ export class CreaturesService {
         private commandBus: CommandBus,
     ) {}
 
-    async searchAll(): Promise<Creature[]> {
-        return await this.queryBus.execute(new CreatureFinderQuery());
+    async searchAll(lastId: string, pageSize: number): Promise<Creature[]> {
+        return await this.queryBus.execute(
+            new CreatureFinderQuery(lastId, pageSize),
+        );
     }
 
     save(creature: ICreature): Promise<any> {

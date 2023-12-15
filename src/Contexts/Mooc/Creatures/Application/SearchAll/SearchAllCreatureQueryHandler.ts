@@ -9,7 +9,7 @@ export class SearchAllCreatureQueryHandler
 {
     constructor(private creatureFinder: CreatureFinder) {}
 
-    async execute(): Promise<ICreature[]> {
-        return await this.creatureFinder.run();
+    async execute(command: CreatureFinderQuery): Promise<ICreature[]> {
+        return await this.creatureFinder.run(command.lastId, command.pageSize);
     }
 }

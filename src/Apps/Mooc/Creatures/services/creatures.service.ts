@@ -7,7 +7,9 @@ import { QueryBus } from '@nestjs/cqrs';
 export class CreaturesService {
     constructor(private queryBus: QueryBus) {}
 
-    async searchAll(): Promise<Creature[]> {
-        return await this.queryBus.execute(new CreatureFinderQuery());
+    async searchAll(lastId: string, pageSize: number): Promise<Creature[]> {
+        return await this.queryBus.execute(
+            new CreatureFinderQuery(lastId, pageSize),
+        );
     }
 }

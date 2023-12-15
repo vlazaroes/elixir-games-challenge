@@ -12,8 +12,15 @@ export class MongoCreatureRepository implements CreatureRepository {
         private creatureModel: Model<CreatureModel>,
     ) {}
 
-    async searchAll(): Promise<Creature[]> {
-        const creatures = await this.creatureModel.find();
+    async searchAll(lastId: string, pageSize: number = 0): Promise<Creature[]> {
+        let creatures;
+        if (!lastId) {
+            creatures = await this.creatureModel.find().limit(pageSize);
+        } else {
+            creatures = await this.creatureModel
+                .find({ _id: { $gt: lastId } })
+                .limit(pageSize);
+        }
         return creatures.map(
             (creature) =>
                 new Creature(

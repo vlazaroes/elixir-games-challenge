@@ -9,8 +9,11 @@ export class CreatureFinder {
         private creatureRepository: CreatureRepository,
     ) {}
 
-    async run(): Promise<ICreature[]> {
-        const creatures = await this.creatureRepository.searchAll();
+    async run(lastId: string, pageSize: number): Promise<ICreature[]> {
+        const creatures = await this.creatureRepository.searchAll(
+            lastId,
+            pageSize,
+        );
         return creatures.map((creature) => creature.toPrimitives());
     }
 }
