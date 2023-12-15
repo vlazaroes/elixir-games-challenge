@@ -9,16 +9,18 @@ import { ContextMoocCreaturesModule } from './Contexts/Mooc/Creatures/creatures.
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { RouterModule } from '@nestjs/core';
+import configuration from './configuration';
 import { redisStore } from 'cache-manager-redis-yet';
 
 @Module({
     imports: [
-        ConfigModule.forRoot(),
+        ConfigModule.forRoot({ isGlobal: true, load: [configuration] }),
         MongooseModule.forRoot(process.env.MONGODB_URL || ''),
         CacheModule.register({
             isGlobal: true,
             store: redisStore,
             url: process.env.REDIS_URL || '',
+            ttl: 30000,
         }),
         AppMoocCreaturesModule,
         AppAuthModule,
